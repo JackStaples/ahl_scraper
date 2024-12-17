@@ -14,7 +14,7 @@ class AHLStatsScraper:
         self.driver =  WebDriverManager.create_driver(headless)
         self.parser = PlayerParser()
 
-    def __del__(self, exc_type, exc_val, exc_tb):
+    def __del__(self):
         try:
             if self.driver is not None:
                 self.driver.quit()
