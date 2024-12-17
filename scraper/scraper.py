@@ -68,21 +68,15 @@ class AHLStatsScraper:
     def click_next_page(self) -> bool:
         """Click the next page button"""
         try:
-            # Wait for element to be present and visible
             wait = WebDriverWait(self.driver, 10)
             next_button = wait.until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, "a[rel='next']"))
             )
-
-            # Scroll element into view
             self.driver.execute_script("arguments[0].scrollIntoView(true);", next_button)
-
-            # Add a small pause to let the page settle after scrolling
             time.sleep(0.5)
-
-            # Try clicking with JavaScript if regular click fails
             try:
                 next_button.click()
+                self.wait_for_table()
             except:
                 self.driver.execute_script("arguments[0].click();", next_button)
 
