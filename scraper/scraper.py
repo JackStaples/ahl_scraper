@@ -11,15 +11,10 @@ from scraper.parser import PlayerParser
 
 class AHLStatsScraper:
     def __init__(self, headless: bool = True):
-        self.driver = None
-        self.headless = headless
+        self.driver =  WebDriverManager.create_driver(headless)
         self.parser = PlayerParser()
 
-    def __enter__(self):
-        self.driver = WebDriverManager.create_driver(self.headless)
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __del__(self, exc_type, exc_val, exc_tb):
         try:
             if self.driver is not None:
                 self.driver.quit()
@@ -35,7 +30,7 @@ class AHLStatsScraper:
                 self.driver = None
         except Exception as e:
             print(f"Error closing driver: {e}")
-            
+
     def get_players(self, num_players: int = 100) -> List[Dict]:
         """Get specified number of top players"""
         self.driver.get(BASE_URL)
