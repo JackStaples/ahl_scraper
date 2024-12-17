@@ -49,3 +49,40 @@ class AHLStatsScraper:
             current_page += 1
 
         return players
+    
+    def get_players_all_seasons(self, num_players: int = 20) -> List[Dict]:
+        """Get players from all regular seasons"""
+        self.stats_page.navigate_to()
+        
+        all_players = []
+        seasons = self.stats_page.get_regular_seasons()
+
+        for season_name, season_id in seasons:
+            print(f"Scraping {season_name}...")
+            if not self.stats_page.select_season(season_id):
+                print(f"Failed to select season {season_name}, skipping...")
+                continue
+
+            current_page = 1
+            players_added = 0
+            while players_added < num_players:
+                print(f"Scraping page {current_page}...")
+
+                rows = self.stats_page.get_player_rows()
+                if not rows:
+                    break
+
+                for row in rows:
+                    player_data = self.parser.parse_player_row(row)
+                    if player_data:
+                        player_data['season'] = season_name
+                        player_data['season_id'] = season_id
+                        all_players.append(player_data)
+                        players_added += 1
+
+                if not self.stats_page.click_next_page():
+                    break
+                current_page += 1
+
+        return all_players
+

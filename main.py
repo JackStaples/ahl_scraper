@@ -7,7 +7,7 @@ def main():
     # Initialize scraper and get data
     scraper = AHLStatsScraper()
     try :
-        top_100 = scraper.get_players(20)
+        top_100 = scraper.get_players_all_seasons(20)
     finally:
         scraper.close()
 
