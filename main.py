@@ -2,12 +2,12 @@ from scraper.AHLStatsScraper import AHLStatsScraper
 from data.DataHandler import DataHandler
 
 def main():
-    print("Starting scrape of top 100 AHL scorers...")
+    print("Starting scrape of top 20 AHL scorers...")
 
     # Initialize scraper and get data
     scraper = AHLStatsScraper()
     try :
-        top_100 = scraper.get_players(100)
+        top_100 = scraper.get_players(20)
     finally:
         scraper.close()
 
