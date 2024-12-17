@@ -6,8 +6,8 @@ from typing import List, Dict
 import time
 
 from config import *
-from scraper.WebDriverManager import WebDriverManager
-from scraper.PlayerParser import PlayerParser
+from scraper.web_driver_manager import WebDriverManager
+from scraper.player_parser import PlayerParser
 
 class AHLStatsScraper:
     def __init__(self, headless: bool = True):

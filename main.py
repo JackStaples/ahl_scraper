@@ -1,5 +1,5 @@
-from scraper.AHLStatsScraper import AHLStatsScraper
-from data.DataHandler import DataHandler
+from scraper.ahl_stats_scraper import AHLStatsScraper
+from data.data_handler import DataHandler
 
 def main():
     print("Starting scrape of top 20 AHL scorers...")
