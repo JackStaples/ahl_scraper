@@ -3,3 +3,4 @@ __pycache__/*
 data/__pycache__/*
 scraping_env/*
 ahl_top_100_scorers.csv
+scraper/pages/__pycache__/player_stats_page.cpython-312.pyc

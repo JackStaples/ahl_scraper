@@ -1,5 +1,5 @@
 # Configuration settings
-BASE_URL = "https://theahl.com/stats/player-stats"
+BASE_URL = "https://theahl.com"
 DEFAULT_FILENAME = 'ahl_top_100_scorers.csv'
 WAIT_TIME = 10
 PAGE_LOAD_DELAY = 2
