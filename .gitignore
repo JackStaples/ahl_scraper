@@ -2,3 +2,4 @@ scraper/__pycache__/*
 __pycache__/*
 data/__pycache__/*
 scraping_env/*
+ahl_top_100_scoring.csv

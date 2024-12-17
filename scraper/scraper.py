@@ -11,28 +11,31 @@ from scraper.parser import PlayerParser
 
 class AHLStatsScraper:
     def __init__(self, headless: bool = True):
-        self.driver = WebDriverManager.create_driver(headless)
+        self.driver = None
+        self.headless = headless
         self.parser = PlayerParser()
 
-    def __del__(self):
-        self.driver.quit()
+    def __enter__(self):
+        self.driver = WebDriverManager.create_driver(self.headless)
+        return self
 
-    def wait_for_table(self):
-        """Wait for the stats table to load"""
-        WebDriverWait(self.driver, WAIT_TIME).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "ht-table"))
-        )
-
-    def click_next_page(self) -> bool:
-        """Click the next page button"""
+    def __exit__(self, exc_type, exc_val, exc_tb):
         try:
-            next_button = self.driver.find_element(By.CSS_SELECTOR, "a[rel='next']")
-            actions = ActionChains(self.driver)
-            actions.move_to_element(next_button).click().perform()
-            return True
-        except:
-            return False
+            if self.driver is not None:
+                self.driver.quit()
+                self.driver = None
+        except Exception as e:
+            print(f"Error closing driver: {e}")
 
+    def close(self):
+        """Explicitly close the browser and clean up resources"""
+        try:
+            if self.driver is not None:
+                self.driver.quit()
+                self.driver = None
+        except Exception as e:
+            print(f"Error closing driver: {e}")
+            
     def get_players(self, num_players: int = 100) -> List[Dict]:
         """Get specified number of top players"""
         self.driver.get(BASE_URL)
@@ -60,3 +63,36 @@ class AHLStatsScraper:
             current_page += 1
 
         return players
+
+    def wait_for_table(self):
+        """Wait for the stats table to load"""
+        WebDriverWait(self.driver, WAIT_TIME).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "ht-table"))
+        )
+
+    def click_next_page(self) -> bool:
+        """Click the next page button"""
+        try:
+            # Wait for element to be present and visible
+            wait = WebDriverWait(self.driver, 10)
+            next_button = wait.until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, "a[rel='next']"))
+            )
+
+            # Scroll element into view
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", next_button)
+
+            # Add a small pause to let the page settle after scrolling
+            time.sleep(0.5)
+
+            # Try clicking with JavaScript if regular click fails
+            try:
+                next_button.click()
+            except:
+                self.driver.execute_script("arguments[0].click();", next_button)
+
+            return True
+        except Exception as e:
+            print(f"Error clicking next page: {e}")
+            return False
+

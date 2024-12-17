@@ -6,7 +6,10 @@ def main():
 
     # Initialize scraper and get data
     scraper = AHLStatsScraper()
-    top_100 = scraper.get_players(100)
+    try :
+        top_100 = scraper.get_players(100)
+    finally:
+        scraper.close()
 
     # Handle data display and storage
     DataHandler.display_results(top_100)
