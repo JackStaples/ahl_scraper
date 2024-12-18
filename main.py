@@ -1,20 +1,21 @@
-from scraper.ahl_stats_scraper import AHLStatsScraper
-from data.data_handler import DataHandler
+from scraper.pages.schedule_page import SchedulePage
+from scraper.web_driver_manager import WebDriverManager
 
 def main():
-    print("Starting scrape of top 20 AHL scorers...")
+    print("Starting scrape...")
+    schedulePage = SchedulePage(WebDriverManager.create_driver())
+    schedulePage.navigate_to()
 
-    # Initialize scraper and get data
-    scraper = AHLStatsScraper()
-    try :
-        top_100 = scraper.get_players_all_seasons(20)
-    finally:
-        scraper.close()
+    seasons = schedulePage.get_available_seasons()
+    # teams = schedulePage.get_available_teams()
+    months = schedulePage.get_available_months()
 
-    # Handle data display and storage
-    DataHandler.display_results(top_100)
-    DataHandler.save_to_csv(top_100)
-    print("\nFull data saved to 'ahl_top_100_scorers.csv'")
+    for season in seasons:
+        for month in months:
+            print(f"Scraping {season} - {month}")
+
+
+    print("\nCompleting scrape...")
 
 if __name__ == "__main__":
     main()

@@ -114,6 +114,21 @@ class SchedulePage(BasePage):
         except Exception as e:
             print(f"Error selecting month: {e}")
             return False
+    
+    def get_available_months(self) -> List[Tuple[str, str]]:
+        """Get all available months and their IDs
+
+        Returns:
+            List[Tuple[str, str]]: List of tuples containing (month_name, month_id)
+        """        
+        try:
+            select_element = self.find_element(self.MONTH_SELECT_LOCATOR)
+            options = select_element.find_elements(By.TAG_NAME, "option")
+            return [(option.get_attribute("label"), option.get_attribute("value")) 
+                   for option in options]
+        except Exception as e:
+            print(f"Error getting months: {e}")
+            return []
 
     def get_available_seasons(self) -> List[Tuple[str, str]]:
         """Get all available seasons and their IDs
