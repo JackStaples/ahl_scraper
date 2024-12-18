@@ -3,7 +3,9 @@ from selenium.webdriver.remote.webelement import WebElement
 from typing import List, Tuple
 import time
 
-from .base_page import BasePage
+from scraper.pages.schedule.elements.game_row import GameRow
+
+from ..base_page import BasePage
 from config import BASE_URL
 
 class SchedulePage(BasePage):
@@ -168,3 +170,12 @@ class SchedulePage(BasePage):
         """        
         table = self.find_element(self.TABLE_LOCATOR)
         return table.find_elements(*self.GAME_ROWS_LOCATOR)
+    
+    def get_games(self) -> List[GameRow]:
+        """Get all games from the current page as GameRow objects
+    
+        Returns:
+            List[GameRow]: List of GameRow objects representing each game
+        """        
+        rows = self.get_game_rows()
+        return [GameRow(row) for row in rows]
