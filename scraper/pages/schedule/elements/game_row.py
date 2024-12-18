@@ -139,3 +139,11 @@ class GameRow:
             return link.get_attribute("href")
         except:
             return None
+        
+    def get_game_is_completed(self) -> bool:
+        """Check if the game is completed
+
+        Returns:
+            bool: True if the game is completed, False otherwise
+        """        
+        return self.get_status().lower().startswith("Final")
