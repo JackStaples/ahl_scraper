@@ -178,4 +178,4 @@ class SchedulePage(BasePage):
             List[GameRow]: List of GameRow objects representing each game
         """        
         rows = self.get_game_rows()
-        return [GameRow(row) for row in rows]
+        return [GameRow(row, self.driver) for row in rows]

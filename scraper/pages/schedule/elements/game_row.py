@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from typing import Optional
 from datetime import datetime
 
+from scraper.pages.game_center.game_center_page import GameCenterPage
+
 @dataclass
 class Team:
     """Represents a team in a game"""
@@ -15,8 +17,9 @@ class Team:
 class GameRow:
     """Represents a row in the schedule table"""
 
-    def __init__(self, row_element: WebElement):
+    def __init__(self, row_element: WebElement, driver):
         self.row = row_element
+        self.driver = driver
 
     def get_date(self) -> str:
         """Get the date the game occurred
@@ -146,4 +149,15 @@ class GameRow:
         Returns:
             bool: True if the game is completed, False otherwise
         """        
-        return self.get_status().lower().startswith("Final")
+        return self.get_status().lower().startswith("final")
+    
+    def navigate_to_game_center(self) -> 'GameCenterPage':
+        """Click the game center link and return a new GameCenterPage instance
+
+        Returns:
+            GameCenterPage: The game center page for this game
+        """
+        game_center_link = self.row.find_element(By.CSS_SELECTOR, "td.game_center a")
+        game_center_link.click()
+        return GameCenterPage(self.driver)
+
