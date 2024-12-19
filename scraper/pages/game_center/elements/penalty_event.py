@@ -6,6 +6,7 @@ from scraper.pages.game_center.elements.game_event import GameEvent, Player
 
 class PenaltyEvent(GameEvent):
     """Represents a penalty event"""
+    EVENT_SELECTOR = "div.ht-event-details div:nth-child(2)"
 
     def __init__(self, element: WebElement):
         super().__init__(element)
@@ -20,7 +21,7 @@ class PenaltyEvent(GameEvent):
         try:
             details_div = self.element.find_element(
                 By.CSS_SELECTOR, 
-                "div.ht-event-details div"
+                self.EVENT_SELECTOR
             )
             # The penalized player is the first player in the details
             return self._parse_player(details_div)

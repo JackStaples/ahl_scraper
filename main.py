@@ -31,8 +31,8 @@ def main():
         games = schedule_page.get_games()
         print(f"\nFound {len(games)} games")
 
-        for i, game in enumerate(games[:3], 1):
-            print(f"\nGame {i} of 3:")
+        for i, game in enumerate(games[:1], 1):
+            print(f"\nGame {i} of 1:")
 
             if (game.get_game_is_completed()):
                 # Navigate to game center

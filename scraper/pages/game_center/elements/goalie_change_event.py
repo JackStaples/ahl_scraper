@@ -1,5 +1,6 @@
 from typing import Optional
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.by import By
 
 from scraper.pages.game_center.elements.game_event import GameEvent, Player
 

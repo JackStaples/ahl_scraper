@@ -45,17 +45,34 @@ class GameEvent:
         team_id = team_logo.split("/")[-1].split("_")[0]
         return (team_name, team_id, team_logo)
 
-    def _parse_player(self, section: WebElement) -> Player:
-        """Parse a player section into a Player object"""
-        spans = section.find_elements(By.TAG_NAME, "span")
-        jersey_number = spans[0].text.replace("#", "")
-
-        link = section.find_element(By.TAG_NAME, "a")
-        name = link.find_element(By.TAG_NAME, "span").text
-        player_id = link.get_attribute("href").split("/")[-2]
-
-        return Player(
-            jersey_number=jersey_number,
-            name=name,
-            player_id=player_id
-        )
+    def _parse_player(self, element: WebElement) -> Player:
+        """
+        Parse player information from various types of play-by-play elements.
+    
+        Args:
+            element: WebElement containing player information
+    
+        Returns:
+            Player: Object containing jersey number, name, and player ID
+        """
+        try:
+            spans = element.find_elements(By.TAG_NAME, "span")
+            jersey_number = spans[0].text.replace("#", "")
+    
+            # Find player link - contains both name and ID
+            player_link = element.find_element(By.TAG_NAME, "a")
+            href = player_link.get_attribute("href")
+            player_id = href.split("/")[-2]  # ID is second to last element in URL
+    
+            # Find player name - it's in a span inside the link
+            name_span = player_link.find_element(By.TAG_NAME, "span")
+            name = name_span.text
+    
+            return Player(
+                jersey_number=jersey_number,
+                name=name,
+                player_id=player_id
+            )
+        except Exception as e:
+            # Handle cases where elements aren't found or are malformed
+            raise ValueError(f"Failed to parse player information: {str(e)}")
