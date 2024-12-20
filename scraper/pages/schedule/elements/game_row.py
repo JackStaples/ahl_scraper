@@ -86,15 +86,6 @@ class GameRow:
             score=int(score_cell.text) if score_cell.text else 0
         )
 
-    def get_game_id(self) -> str:
-        """Get the game ID
-
-        Returns:
-            str: The game ID
-        """        
-        game_id_cell = self.row.find_element(By.CSS_SELECTOR, "td.game_id span")
-        return game_id_cell.text
-
     def get_game_center_url(self) -> Optional[str]:
         """Get the game center URL if availableGet the game center URL if available
 

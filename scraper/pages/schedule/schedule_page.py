@@ -162,7 +162,7 @@ class SchedulePage(BasePage):
             print(f"Error getting teams: {e}")
             return []
 
-    def get_game_rows(self) -> List[WebElement]:
+    def get_game_rows(self) -> List[GameRow]:
         """Get all game rows from the current page
 
         Returns:
@@ -179,3 +179,24 @@ class SchedulePage(BasePage):
         """        
         rows = self.get_game_rows()
         return [GameRow(row, self.driver) for row in rows]
+    
+    def get_game_row(self, index: int) -> GameRow:
+        """Get a specific game row by index
+
+        Returns:
+            List[WebElement]: Game row
+        """        
+        table = self.find_element(self.TABLE_LOCATOR)
+        try:
+            return table.find_elements(*self.GAME_ROWS_LOCATOR)[index]
+        except IndexError:
+            return None
+        
+    def get_game(self, index: int) -> GameRow:
+        """Get a specific game by index as a GameRow object
+
+        Returns:
+            GameRow: GameRow object representing the game
+        """        
+        row = self.get_game_row(index)
+        return GameRow(row, self.driver) if row else None
