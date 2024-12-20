@@ -1,7 +1,9 @@
+from typing import List
 from selenium.webdriver.common.by import By
 import time
 
 from scraper.pages.game_center.elements.event_factory import EventFactory
+from scraper.pages.game_center.elements.game_event import GameEvent
 
 from ..base_page import BasePage
 
@@ -15,7 +17,7 @@ class GameCenterPage(BasePage):
         self.wait_for_element_visible(self.PERIOD_SECTIONS_LOCATOR)
         time.sleep(1)  # Give extra time for events to load
 
-    def get_events(self):
+    def get_events(self) -> List[GameEvent]:
         """Get all events from the game"""
         events = []
 

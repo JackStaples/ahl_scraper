@@ -2,6 +2,8 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from typing import Optional
 
+from scraper.pages.game_center.elements.goal_event import GoalEvent
+
 from .game_event import GameEvent
 from .goalie_change_event import GoalieChangeEvent
 from .shot_event import ShotEvent
@@ -29,7 +31,10 @@ class EventFactory:
                 return ShotEvent(element)
             elif "PENALTY" in event_type:
                 return PenaltyEvent(element)
-
+            elif "GOAL" in event_type:
+                return GoalEvent(element)
+            
+            print(f"Unsupported event type: {event_type}")
             return None
         except Exception as e:
             print(f"Error creating event: {e}")

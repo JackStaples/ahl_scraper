@@ -8,11 +8,12 @@ class Player:
     jersey_number: str
     name: str
     player_id: str
+    type: str = "Unknown"
 
 class GameEvent:
     """Base class for game events"""
 
-    def __init__(self, element: WebElement):
+    def __init__(self, element: WebElement, event_type: str):
         """Initialize a game event from a row element
 
         Args:
@@ -23,6 +24,7 @@ class GameEvent:
         self.time = self._get_time()
         self.is_home_team = self._is_home_team()
         self.team_info = self._get_team_info()
+        self.event_type = event_type
 
     def _get_event_type(self) -> str:
         """Get the event type"""

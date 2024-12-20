@@ -8,7 +8,7 @@ class GoalieChangeEvent(GameEvent):
     """Represents a goalie change event"""
 
     def __init__(self, element: WebElement):
-        super().__init__(element)
+        super().__init__(element, 'Goalie Change')
         self.goalie_in = self._get_goalie_in()
         self.goalie_out = self._get_goalie_out()
 

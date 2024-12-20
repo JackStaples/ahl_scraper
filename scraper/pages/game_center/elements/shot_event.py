@@ -10,7 +10,7 @@ class ShotEvent(GameEvent):
     EVENT_SELECTOR = "div.ht-event-details div:nth-child(2)"
 
     def __init__(self, element: WebElement):
-        super().__init__(element)
+        super().__init__(element, 'Shot')
         self.shooter = self._get_shooter()
         self.goalie = self._get_goalie()
 

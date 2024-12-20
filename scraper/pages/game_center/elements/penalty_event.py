@@ -9,7 +9,7 @@ class PenaltyEvent(GameEvent):
     EVENT_SELECTOR = "div.ht-event-details div:nth-child(2)"
 
     def __init__(self, element: WebElement):
-        super().__init__(element)
+        super().__init__(element, 'Penalty')
         self.player = self._get_penalized_player()
         self.served_by = self._get_serving_player()
         self.description = self._get_penalty_description()

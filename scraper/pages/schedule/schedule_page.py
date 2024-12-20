@@ -23,6 +23,12 @@ class SchedulePage(BasePage):
         self.driver.get(self.PAGE_URL)
         self.wait_for_table()
 
+    def navigate_to_all_months(self):
+        """Navigate to the schedule page with all months selected"""
+        self.navigate_to()
+        self.select_month("-1")
+        self.wait_for_table()
+
     def wait_for_table(self):
         """Wait for the schedule table to load"""
         self.find_element(self.TABLE_LOCATOR)
@@ -162,7 +168,7 @@ class SchedulePage(BasePage):
             print(f"Error getting teams: {e}")
             return []
 
-    def get_game_rows(self) -> List[GameRow]:
+    def _get_game_rows(self) -> List[GameRow]:
         """Get all game rows from the current page
 
         Returns:
@@ -177,10 +183,10 @@ class SchedulePage(BasePage):
         Returns:
             List[GameRow]: List of GameRow objects representing each game
         """        
-        rows = self.get_game_rows()
+        rows = self._get_game_rows()
         return [GameRow(row, self.driver) for row in rows]
     
-    def get_game_row(self, index: int) -> GameRow:
+    def _get_game_row(self, index: int) -> GameRow:
         """Get a specific game row by index
 
         Returns:
@@ -198,5 +204,5 @@ class SchedulePage(BasePage):
         Returns:
             GameRow: GameRow object representing the game
         """        
-        row = self.get_game_row(index)
+        row = self._get_game_row(index)
         return GameRow(row, self.driver) if row else None
