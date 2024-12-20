@@ -13,6 +13,9 @@ class ShotEvent(GameEvent):
         super().__init__(element, 'Shot')
         self.shooter = self._get_shooter()
         self.goalie = self._get_goalie()
+    
+    def __str__(self) -> str:
+        return f"Shot at {self.time} by {self.shooter.name} on {self.goalie.name}"
 
     def _get_shooter(self) -> Optional[Player]:
         """Get the shooting player"""

@@ -15,6 +15,9 @@ class PenaltyEvent(GameEvent):
         self.description = self._get_penalty_description()
         self.minutes = self._get_penalty_minutes()
         self.is_powerplay = self._is_powerplay()
+    
+    def __str__(self) -> str:
+        return f"Penalty at {self.time} to {self.player.name} - {self.description}"
 
     def _get_penalized_player(self) -> Optional[Player]:
         """Get the player who took the penalty"""

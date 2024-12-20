@@ -12,6 +12,9 @@ class GoalieChangeEvent(GameEvent):
         self.goalie_in = self._get_goalie_in()
         self.goalie_out = self._get_goalie_out()
 
+    def __str__(self) -> str:
+        return f"Goalie change at {self.time} - {self.goalie_in.name} in"
+
     def _get_goalie_in(self) -> Optional[Player]:
         """Get the goalie coming in"""
         try:

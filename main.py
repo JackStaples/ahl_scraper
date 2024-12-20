@@ -25,17 +25,10 @@ def main():
             if (game.get_game_is_completed()):
                 events = get_game_events(game)
                 for event in events:
-                    if isinstance(event, ShotEvent):
-                        print(f"Shot at {event.time} by {event.shooter.name} on {event.goalie.name}")
-                    elif isinstance(event, PenaltyEvent):
-                        print(f"Penalty at {event.time} to {event.player.name} - {event.description}")
-                    elif isinstance(event, GoalieChangeEvent):
-                        print(f"Goalie change at {event.time} - {event.goalie_in.name} in")
-                    elif isinstance(event, GoalEvent):
-                        print(f"Goal at {event.time} by {event.scorer.name} assisted by {event.assists[0].name if event.assists else 'no one'}")
+                    print(event) 
 
             # if not at last game, navigate back to all months
-            if index < len(games):    
+            if index + 1 < len(games):    
                 schedule_page.navigate_to_all_months()
 
     except Exception as e:

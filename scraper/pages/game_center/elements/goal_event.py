@@ -15,6 +15,10 @@ class GoalEvent(GameEvent):
         self.is_power_play = self._is_power_play()
         self.is_insurance_goal = self._is_insurance_goal()
 
+    def __str__(self) -> str:
+        assist_text = self.assists[0].name if self.assists else 'no one'
+        return f"Goal at {self.time} by {self.scorer.name} assisted by {assist_text}"
+
     def _get_scorer(self) -> Optional[Player]:
         """Get the scoring player"""
         try:
