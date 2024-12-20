@@ -2,12 +2,9 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from typing import Optional
 
-from scraper.pages.game_center.elements.goal_event import GoalEvent
+from scraper.pages.game_center.elements.event_types import EventType
 
 from .game_event import GameEvent
-from .goalie_change_event import GoalieChangeEvent
-from .shot_event import ShotEvent
-from .penalty_event import PenaltyEvent
 
 class EventFactory:
     """Factory class for creating game events"""
@@ -23,18 +20,13 @@ class EventFactory:
             Optional[GameEvent]: The appropriate event object or None if not supported
         """
         try:
-            event_type = element.find_element(By.CSS_SELECTOR, "div.ht-event-type").text
-
-            if "GOALIE CHANGE" in event_type:
-                return GoalieChangeEvent(element)
-            elif "SHOT" in event_type:
-                return ShotEvent(element)
-            elif "PENALTY" in event_type:
-                return PenaltyEvent(element)
-            elif "GOAL" in event_type:
-                return GoalEvent(element)
+            event_name = element.find_element(By.CSS_SELECTOR, "div.ht-event-type").text
+            event_type = EventType.from_text(event_name)
             
-            print(f"Unsupported event type: {event_type}")
+            if event_type:
+                return event_type.create_event(element)
+
+            print(f"Unsupported event type: {event_name}")
             return None
         except Exception as e:
             print(f"Error creating event: {e}")
