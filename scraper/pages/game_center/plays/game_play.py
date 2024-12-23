@@ -10,32 +10,31 @@ class Player:
     player_id: str
     type: str = "Unknown"
 
-class GameEvent:
-    """Base class for game events"""
+class GamePlay:
+    """Base class for game plays"""
 
-    def __init__(self, element: WebElement, event_type: str):
-        """Initialize a game event from a row element
+    def __init__(self, element: WebElement, play_type: str):
+        """Initialize a game play from a row element
 
         Args:
-            element (WebElement): The event row element
+            element (WebElement): The play row element
         """
         self.element = element
-        self.event_type = self._get_event_type()
+        self.play_type = self._get_play_type()
         self.time = self._get_time()
         self.is_home_team = self._is_home_team()
         self.team_info = self._get_team_info()
-        self.event_type = event_type
 
-    def _get_event_type(self) -> str:
-        """Get the event type"""
+    def _get_play_type(self) -> str:
+        """Get the play type"""
         return self.element.find_element(By.CSS_SELECTOR, "div.ht-event-type").text
 
     def _get_time(self) -> str:
-        """Get the event time"""
+        """Get the play time"""
         return self.element.find_element(By.CSS_SELECTOR, "div.ht-event-time span").text
 
     def _is_home_team(self) -> bool:
-        """Check if this is a home team event"""
+        """Check if this is a home team play"""
         home_elements = self.element.find_elements(By.CSS_SELECTOR, "div.ht-hometeam")
         return len(home_elements) > 0
 

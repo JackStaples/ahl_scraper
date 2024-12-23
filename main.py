@@ -1,9 +1,9 @@
 from typing import List
-from scraper.pages.game_center.plays.game_play import GameEvent
-from scraper.pages.game_center.plays.goal_event import GoalEvent
-from scraper.pages.game_center.plays.goalie_change_event import GoalieChangeEvent
-from scraper.pages.game_center.plays.penalty_event import PenaltyEvent
-from scraper.pages.game_center.plays.shot_event import ShotEvent
+from scraper.pages.game_center.plays.game_play import GamePlay
+from scraper.pages.game_center.plays.goal_play import GoalPlay
+from scraper.pages.game_center.plays.goalie_change_play import GoalieChangePlay
+from scraper.pages.game_center.plays.penalty_play import PenaltyPlay
+from scraper.pages.game_center.plays.shot_play import ShotPlay
 from scraper.pages.schedule.elements.game_row import GameRow
 from scraper.pages.schedule.schedule_page import SchedulePage
 from scraper.web_driver_manager import WebDriverManager
@@ -23,9 +23,9 @@ def main():
             game = schedule_page.get_game(index)
 
             if (game.get_game_is_completed()):
-                events = get_game_plays(game)
-                for event in events:
-                    print(event) 
+                plays = get_game_plays(game)
+                for play in plays:
+                    print(play) 
 
             # if not at last game, navigate back to all months
             if index + 1 < len(games):    
@@ -38,10 +38,10 @@ def main():
         print("\nCompleting scrape...")
         driver.quit()
 
-def get_game_plays(game: GameRow) -> List[GameEvent]:
+def get_game_plays(game: GameRow) -> List[GamePlay]:
     game_center = game.navigate_to_game_center()
-    events = game_center.get_events()
-    return events
+    plays = game_center.get_plays()
+    return plays
 
 if __name__ == "__main__":
     main()

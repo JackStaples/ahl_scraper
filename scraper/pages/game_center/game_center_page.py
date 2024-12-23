@@ -2,8 +2,8 @@ from typing import List
 from selenium.webdriver.common.by import By
 import time
 
-from scraper.pages.game_center.plays.event_factory import EventFactory
-from scraper.pages.game_center.plays.game_play import GameEvent
+from scraper.pages.game_center.plays.play_factory import PlayFactory
+from scraper.pages.game_center.plays.game_play import GamePlay
 
 from ..base_page import BasePage
 
@@ -15,20 +15,19 @@ class GameCenterPage(BasePage):
     def wait_for_load(self):
         """Wait for the game center page to load"""
         self.wait_for_element_visible(self.PERIOD_SECTIONS_LOCATOR)
-        time.sleep(1)  # Give extra time for events to load
 
-    def get_events(self) -> List[GameEvent]:
-        """Get all events from the game"""
-        events = []
+    def get_plays(self) -> List[GamePlay]:
+        """Get all plays from the game"""
+        plays = []
 
-        event_elements = self.driver.find_elements(
+        play_elements = self.driver.find_elements(
             By.CSS_SELECTOR, 
             "div.ht-event-row"
         )
 
-        for element in event_elements:
-            event = EventFactory.create_event(element)
-            if event:
-                events.append(event)
+        for element in play_elements:
+            play = PlayFactory.create_play(element)
+            if play:
+                plays.append(play)
 
-        return events
+        return plays

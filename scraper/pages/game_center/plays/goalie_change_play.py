@@ -2,10 +2,10 @@ from typing import Optional
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 
-from scraper.pages.game_center.plays.game_play import GameEvent, Player
+from scraper.pages.game_center.plays.game_play import GamePlay, Player
 
-class GoalieChangeEvent(GameEvent):
-    """Represents a goalie change event"""
+class GoalieChangePlay(GamePlay):
+    """Represents a goalie change play"""
 
     def __init__(self, element: WebElement):
         super().__init__(element, 'Goalie Change')

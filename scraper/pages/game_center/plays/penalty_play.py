@@ -2,10 +2,10 @@ from typing import Optional
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 
-from scraper.pages.game_center.plays.game_play import GameEvent, Player
+from scraper.pages.game_center.plays.game_play import GamePlay, Player
 
-class PenaltyEvent(GameEvent):
-    """Represents a penalty event"""
+class PenaltyPlay(GamePlay):
+    """Represents a penalty play"""
     EVENT_SELECTOR = "div.ht-event-details div:nth-child(2)"
 
     def __init__(self, element: WebElement):
