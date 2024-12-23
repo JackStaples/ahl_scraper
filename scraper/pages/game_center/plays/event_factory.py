@@ -4,7 +4,7 @@ from typing import Optional
 
 from scraper.pages.game_center.plays.event_types import EventType
 
-from .game_event import GameEvent
+from .game_play import GameEvent
 
 class EventFactory:
     """Factory class for creating game events"""

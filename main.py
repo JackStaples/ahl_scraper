@@ -1,5 +1,5 @@
 from typing import List
-from scraper.pages.game_center.plays.game_event import GameEvent
+from scraper.pages.game_center.plays.game_play import GameEvent
 from scraper.pages.game_center.plays.goal_event import GoalEvent
 from scraper.pages.game_center.plays.goalie_change_event import GoalieChangeEvent
 from scraper.pages.game_center.plays.penalty_event import PenaltyEvent
@@ -23,7 +23,7 @@ def main():
             game = schedule_page.get_game(index)
 
             if (game.get_game_is_completed()):
-                events = get_game_events(game)
+                events = get_game_plays(game)
                 for event in events:
                     print(event) 
 
@@ -38,7 +38,7 @@ def main():
         print("\nCompleting scrape...")
         driver.quit()
 
-def get_game_events(game: GameRow) -> List[GameEvent]:
+def get_game_plays(game: GameRow) -> List[GameEvent]:
     game_center = game.navigate_to_game_center()
     events = game_center.get_events()
     return events

@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Optional, Type
 
-from scraper.pages.game_center.plays.game_event import GameEvent
+from scraper.pages.game_center.plays.game_play import GameEvent
 from scraper.pages.game_center.plays.goal_event import GoalEvent
 from scraper.pages.game_center.plays.goalie_change_event import GoalieChangeEvent
 from scraper.pages.game_center.plays.penalty_event import PenaltyEvent
