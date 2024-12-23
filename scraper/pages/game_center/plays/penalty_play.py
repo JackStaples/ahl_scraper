@@ -6,7 +6,6 @@ from scraper.pages.game_center.plays.game_play import GamePlay, Player
 
 class PenaltyPlay(GamePlay):
     """Represents a penalty play"""
-    EVENT_SELECTOR = "div.ht-event-details div:nth-child(2)"
 
     def __init__(self, element: WebElement):
         super().__init__(element, 'Penalty')

@@ -12,6 +12,7 @@ class Player:
 
 class GamePlay:
     """Base class for game plays"""
+    EVENT_SELECTOR = "div.ht-event-details div:nth-child(2)"
 
     def __init__(self, element: WebElement, play_type: str):
         """Initialize a game play from a row element
