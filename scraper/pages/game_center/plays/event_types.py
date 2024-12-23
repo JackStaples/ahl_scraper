@@ -1,11 +1,11 @@
 from enum import Enum
 from typing import Optional, Type
 
-from scraper.pages.game_center.elements.game_event import GameEvent
-from scraper.pages.game_center.elements.goal_event import GoalEvent
-from scraper.pages.game_center.elements.goalie_change_event import GoalieChangeEvent
-from scraper.pages.game_center.elements.penalty_event import PenaltyEvent
-from scraper.pages.game_center.elements.shot_event import ShotEvent
+from scraper.pages.game_center.plays.game_event import GameEvent
+from scraper.pages.game_center.plays.goal_event import GoalEvent
+from scraper.pages.game_center.plays.goalie_change_event import GoalieChangeEvent
+from scraper.pages.game_center.plays.penalty_event import PenaltyEvent
+from scraper.pages.game_center.plays.shot_event import ShotEvent
 
 class EventType(Enum):
     GOALIE_CHANGE = (GoalieChangeEvent, "GOALIE CHANGE")

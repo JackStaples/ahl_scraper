@@ -2,7 +2,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from typing import Optional
 
-from scraper.pages.game_center.elements.event_types import EventType
+from scraper.pages.game_center.plays.event_types import EventType
 
 from .game_event import GameEvent
 

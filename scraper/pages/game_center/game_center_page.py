@@ -2,8 +2,8 @@ from typing import List
 from selenium.webdriver.common.by import By
 import time
 
-from scraper.pages.game_center.elements.event_factory import EventFactory
-from scraper.pages.game_center.elements.game_event import GameEvent
+from scraper.pages.game_center.plays.event_factory import EventFactory
+from scraper.pages.game_center.plays.game_event import GameEvent
 
 from ..base_page import BasePage
 
